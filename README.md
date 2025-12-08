@@ -101,11 +101,19 @@ npm run build
 
 ## 🔧 Configuration
 
-The app is pre-configured for Ethereum Sepolia testnet with USDC token:
+The app uses environment variables for configuration. Set these in your `.env` file or Netlify dashboard:
 
-- **Network**: Ethereum Sepolia
-- **Default Token**: USDC (`0x1c7D4B196Cb0C7B01d743Fbc6116a902379C7238`)
-- **Sponsorship**: Enabled (no gas fees for users)
+**Required:**
+- `BICONOMY_API_KEY` - Your Biconomy API key
+- `BICONOMY_PROJECT_ID` - Your Biconomy Project ID
+
+**Optional:**
+- `DEFAULT_TOKEN_ADDRESS` - Default token address
+- `DEFAULT_TOKEN_DECIMALS` - Token decimals
+- `DEFAULT_TOKEN_SYMBOL` - Token symbol
+- `DEFAULT_TOKEN_NAME` - Token name
+
+**Note:** In Netlify, variables must use `VITE_` prefix (e.g., `VITE_BICONOMY_API_KEY`). The code uses clean names internally.
 
 ## 🎮 Usage
 

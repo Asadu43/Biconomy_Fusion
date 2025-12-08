@@ -1,10 +1,12 @@
 import { polygon } from 'viem/chains'
 
-// Validate required environment variables
-const getEnvVar = (key: string, defaultValue?: string): string => {
-  const value = import.meta.env[key]
+// Environment variable mapping
+// Note: Vite requires VITE_ prefix, but we use clean names internally
+const getEnvVar = (cleanName: string, defaultValue?: string): string => {
+  const viteKey = `VITE_${cleanName}`
+  const value = import.meta.env[viteKey]
   if (!value && !defaultValue) {
-    console.warn(`⚠️ Environment variable ${key} is not set`)
+    console.warn(`⚠️ Environment variable ${cleanName} is not set (expected: ${viteKey})`)
   }
   return value || defaultValue || ''
 }
@@ -13,18 +15,18 @@ export const config = {
   // Network configuration - Polygon Mainnet
   chain: polygon,
   
-  // Default token configuration (from .env or defaults)
+  // Default token configuration
   defaultToken: {
-    address: (getEnvVar('VITE_DEFAULT_TOKEN_ADDRESS') || '') as `0x${string}`,
-    decimals: Number(getEnvVar('VITE_DEFAULT_TOKEN_DECIMALS') || ''),
-    symbol: getEnvVar('VITE_DEFAULT_TOKEN_SYMBOL') || '',
-    name: getEnvVar('VITE_DEFAULT_TOKEN_NAME') || ''
+    address: (getEnvVar('DEFAULT_TOKEN_ADDRESS') || '') as `0x${string}`,
+    decimals: Number(getEnvVar('DEFAULT_TOKEN_DECIMALS') || ''),
+    symbol: getEnvVar('DEFAULT_TOKEN_SYMBOL') || '',
+    name: getEnvVar('DEFAULT_TOKEN_NAME') || ''
   },
   
-  // Biconomy configuration (from .env - REQUIRED)
+  // Biconomy configuration (REQUIRED)
   biconomy: {
-    apiKey: getEnvVar('VITE_BICONOMY_API_KEY'),
-    projectId: getEnvVar('VITE_BICONOMY_PROJECT_ID'),
+    apiKey: getEnvVar('BICONOMY_API_KEY'),
+    projectId: getEnvVar('BICONOMY_PROJECT_ID'),
   },
   
   // Explorer URLs
@@ -37,11 +39,11 @@ export const config = {
 
 // Validate critical configuration
 if (!config.biconomy.apiKey) {
-  console.error('❌ VITE_BICONOMY_API_KEY is required. Please set it in your .env file.')
+  console.error('❌ BICONOMY_API_KEY is required. Please set VITE_BICONOMY_API_KEY in your environment variables.')
 }
 
 if (!config.biconomy.projectId) {
-  console.error('❌ VITE_BICONOMY_PROJECT_ID is required. Please set it in your .env file.')
+  console.error('❌ BICONOMY_PROJECT_ID is required. Please set VITE_BICONOMY_PROJECT_ID in your environment variables.')
 }
 
 

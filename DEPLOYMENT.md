@@ -42,22 +42,24 @@ Before deploying, you **must** set environment variables in Netlify:
 
 ### Required Variables
 
-| Variable Name | Description | Example |
-|--------------|-------------|---------|
-| `VITE_BICONOMY_API_KEY` | Your Biconomy API key | `mee_Qh35Xsqw9acrZPk5GcvNLP` |
-| `VITE_BICONOMY_PROJECT_ID` | Your Biconomy Project ID | `3fa275ac-0c70-463e-ac91-6ba925aebc5c` |
+| Variable Name (in Netlify) | Clean Name (in Code) | Description | Example |
+|---------------------------|---------------------|-------------|---------|
+| `VITE_BICONOMY_API_KEY` | `BICONOMY_API_KEY` | Your Biconomy API key | `mee_xxxxxxxxxxxxx` |
+| `VITE_BICONOMY_PROJECT_ID` | `BICONOMY_PROJECT_ID` | Your Biconomy Project ID | `xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx` |
 
 ### Optional Variables
 
-| Variable Name | Description | Default |
-|--------------|-------------|---------|
-| `VITE_DEFAULT_TOKEN_ADDRESS` | Default token address | Empty |
-| `VITE_DEFAULT_TOKEN_DECIMALS` | Token decimals | Empty |
-| `VITE_DEFAULT_TOKEN_SYMBOL` | Token symbol | Empty |
-| `VITE_DEFAULT_TOKEN_NAME` | Token name | Empty |
+| Variable Name (in Netlify) | Clean Name (in Code) | Description | Default |
+|---------------------------|---------------------|-------------|---------|
+| `VITE_DEFAULT_TOKEN_ADDRESS` | `DEFAULT_TOKEN_ADDRESS` | Default token address | Empty |
+| `VITE_DEFAULT_TOKEN_DECIMALS` | `DEFAULT_TOKEN_DECIMALS` | Token decimals | Empty |
+| `VITE_DEFAULT_TOKEN_SYMBOL` | `DEFAULT_TOKEN_SYMBOL` | Token symbol | Empty |
+| `VITE_DEFAULT_TOKEN_NAME` | `DEFAULT_TOKEN_NAME` | Token name | Empty |
 
 **Important**: 
-- Environment variables starting with `VITE_` are exposed to the browser
+- In Netlify, you must use the `VITE_` prefix (required by Vite)
+- In code, we use clean names without the prefix
+- Environment variables are exposed to the browser (this is normal for Vite apps)
 - Never commit your actual API keys to GitHub
 - Use Netlify's environment variables for production
 
@@ -114,9 +116,9 @@ This ensures:
 - **Solution**: Ensure all dependencies are in `package.json`
 - Check that `node_modules` is not in `.gitignore` incorrectly
 
-**Error**: `VITE_BICONOMY_API_KEY is not set`
+**Error**: `BICONOMY_API_KEY is not set`
 - **Solution**: Add environment variables in Netlify dashboard
-- Ensure variable names start with `VITE_`
+- Use `VITE_BICONOMY_API_KEY` in Netlify (Vite requires the prefix)
 
 ### Site Loads but Wallet Doesn't Connect
 
@@ -130,7 +132,7 @@ This ensures:
 
 **Issue**: Variables set but not accessible
 - **Solution**:
-  - Ensure variables start with `VITE_`
+  - Ensure variables start with `VITE_` prefix in Netlify
   - Redeploy after adding variables
   - Check variable names match exactly (case-sensitive)
 

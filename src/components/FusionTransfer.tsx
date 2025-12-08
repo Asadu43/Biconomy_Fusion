@@ -352,7 +352,7 @@ export default function FusionTransfer({ walletClient, userAddress }: FusionTran
       setStatus({ type: 'loading', message: 'Initializing MEE Client...' })
       
       if (!config.biconomy.apiKey) {
-        throw new Error('Biconomy API key is required. Please configure VITE_BICONOMY_API_KEY in your .env file')
+        throw new Error('Biconomy API key is required. Please configure BICONOMY_API_KEY in your environment variables.')
       }
       
       const meeClient = await createMeeClient({
@@ -394,29 +394,20 @@ export default function FusionTransfer({ walletClient, userAddress }: FusionTran
         instructions: [transferInstruction]
       })
       
-      // Check quote for permit usage
+      // Check quote for approval calls
       const quoteData = fusionQuote as any
-      const triggerInfo = quoteData?.trigger || {}
-      const triggerType = triggerInfo?.type
       const userOps = quoteData?.quote?.userOps || []
       
       // Check for approval calls in userOps
       let hasApprovalCall = false
-      let hasPermitSignature = false
       
       for (const userOp of userOps) {
         const callData = userOp?.userOp?.callData || ''
-        const signature = userOp?.userOp?.signature || ''
         
         // Check for approve function selector
         if (callData && typeof callData === 'string' && callData.toLowerCase().includes('095ea7b3')) {
           hasApprovalCall = true
           break
-        }
-        
-        // Check for permit signature (long signature > 200 chars)
-        if (signature && typeof signature === 'string' && signature.length > 200) {
-          hasPermitSignature = true
         }
       }
       
@@ -577,7 +568,7 @@ export default function FusionTransfer({ walletClient, userAddress }: FusionTran
         
         // Check for API key related errors
         if (err.message?.includes('API key') || err.message?.includes('authentication')) {
-          errorMessage = 'API key issue. Please check your Biconomy API key in .env file (VITE_BICONOMY_API_KEY)'
+          errorMessage = 'API key issue. Please check your Biconomy API key in environment variables (BICONOMY_API_KEY)'
         }
         
         // Check for sponsorship errors

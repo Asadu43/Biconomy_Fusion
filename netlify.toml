@@ -12,11 +12,13 @@
   to = "/index.html"
   status = 200
 
-# Environment variables should be set in Netlify dashboard:
-# - VITE_BICONOMY_API_KEY (required)
-# - VITE_BICONOMY_PROJECT_ID (required)
-# - VITE_DEFAULT_TOKEN_ADDRESS (optional)
-# - VITE_DEFAULT_TOKEN_DECIMALS (optional)
-# - VITE_DEFAULT_TOKEN_SYMBOL (optional)
-# - VITE_DEFAULT_TOKEN_NAME (optional)
+# Environment variables (must use VITE_ prefix in Netlify):
+# Required:
+#   VITE_BICONOMY_API_KEY → BICONOMY_API_KEY (in code)
+#   VITE_BICONOMY_PROJECT_ID → BICONOMY_PROJECT_ID (in code)
+# Optional:
+#   VITE_DEFAULT_TOKEN_ADDRESS → DEFAULT_TOKEN_ADDRESS (in code)
+#   VITE_DEFAULT_TOKEN_DECIMALS → DEFAULT_TOKEN_DECIMALS (in code)
+#   VITE_DEFAULT_TOKEN_SYMBOL → DEFAULT_TOKEN_SYMBOL (in code)
+#   VITE_DEFAULT_TOKEN_NAME → DEFAULT_TOKEN_NAME (in code)
 
