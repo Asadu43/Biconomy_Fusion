@@ -7,11 +7,6 @@ import { config as appConfig } from './config'
 
 const projectId = appConfig.walletConnect.projectId
 
-if (!projectId || projectId === 'REPLACE_WITH_WALLETCONNECT_PROJECT_ID') {
-  // Throw early so the UI can surface a helpful message instead of failing silently
-  throw new Error('VITE_WALLETCONNECT_PROJECT_ID is missing in environment variables')
-}
-
 const chains: [Chain, ...Chain[]] = [appConfig.chain as Chain]
 
 // Create Wagmi Adapter (without Coinbase Wallet to avoid SDK issues)

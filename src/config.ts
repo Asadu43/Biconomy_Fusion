@@ -5,7 +5,7 @@ export const config = {
   chain: polygon,
   // WalletConnect / Web3Modal configuration
   walletConnect: {
-    projectId: import.meta.env.VITE_WALLETCONNECT_PROJECT_ID || 'REPLACE_WITH_WALLETCONNECT_PROJECT_ID',
+    projectId: '18244949caa0c68708c2025b6a32ed46',
     metadata: {
       name: 'Fusion Transfer Demo',
       description: 'Transfer tokens with Biconomy Fusion',
