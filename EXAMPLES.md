@@ -1,6 +1,6 @@
 # 📚 Usage Examples
 
-Comprehensive examples for different Fusion Mode scenarios.
+Comprehensive examples for different Gasless Transfer scenarios.
 
 ## Basic Token Transfer (Current Implementation)
 
@@ -150,7 +150,7 @@ if (!supportsPermit) {
   await walletClient.waitForTransactionReceipt({ hash: approveTx })
 }
 
-// Then proceed with Fusion transfer
+// Then proceed with Gasless Transfer
 const fusionQuote = await meeClient.getFusionQuote({
   sponsorship: true,
   trigger: {
@@ -313,7 +313,7 @@ if (userApproves) {
 }
 ```
 
-## Example 10: React Hook for Fusion Transfer
+## Example 10: React Hook for Gasless Transfer
 
 Reusable React hook:
 

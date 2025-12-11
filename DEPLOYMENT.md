@@ -1,6 +1,6 @@
 # 🚀 Netlify Deployment Guide
 
-Complete step-by-step guide to deploy the Biconomy Fusion Mode Demo to Netlify.
+Complete step-by-step guide to deploy the Biconomy Gasless Transfer Demo to Netlify.
 
 ## Prerequisites
 
@@ -14,7 +14,7 @@ If you haven't already, push your code to GitHub:
 
 ```bash
 git add .
-git commit -m "Initial commit: Biconomy Fusion Mode Demo"
+git commit -m "Initial commit: Biconomy Gasless Transfer Demo"
 git branch -M master
 git remote add origin https://github.com/AliWisam/Biconomy_Fusion.git
 git push -u origin master

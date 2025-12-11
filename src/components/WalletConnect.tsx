@@ -79,11 +79,11 @@ export default function WalletConnect() {
   const connectedWalletName = getWalletDisplayName()
 
   return (
-    <div className="card" style={{ maxWidth: '600px', margin: '0 auto' }}>
-      <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
+    <div className="card" style={{ maxWidth: '600px', margin: '0 auto', padding: '1.25rem' }}>
+      <div style={{ textAlign: 'center', marginBottom: '1.5rem' }}>
         <h2 style={{ 
           margin: '0 0 0.5rem 0', 
-          fontSize: '1.75rem',
+          fontSize: 'clamp(1.5rem, 4vw, 1.75rem)',
           fontWeight: '600',
           background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
           WebkitBackgroundClip: 'text',
@@ -92,7 +92,7 @@ export default function WalletConnect() {
         }}>
           Connect Your Wallet
         </h2>
-        <p style={{ margin: 0, color: '#888', fontSize: '0.95em' }}>
+        <p style={{ margin: 0, color: '#888', fontSize: 'clamp(0.85rem, 2vw, 0.95em)' }}>
           Choose your preferred wallet to get started
         </p>
       </div>
@@ -101,14 +101,14 @@ export default function WalletConnect() {
       {!connected && (
         <div style={{ 
           marginBottom: '1.5rem',
-          padding: '1rem',
+          padding: 'clamp(0.75rem, 2vw, 1rem)',
           backgroundColor: '#1a4d1a',
           borderRadius: '12px',
           border: '1px solid #2d5a3d',
           textAlign: 'center'
         }}>
           <div style={{ 
-            fontSize: '0.95em', 
+            fontSize: 'clamp(0.85em, 2vw, 0.95em)', 
             color: '#4ade80',
             fontWeight: '500',
             lineHeight: '1.5'
@@ -123,8 +123,8 @@ export default function WalletConnect() {
         disabled={isConnecting}
         style={{ 
           width: '100%', 
-          padding: '1em',
-          fontSize: '1rem',
+          padding: 'clamp(0.875rem, 2vw, 1em)',
+          fontSize: 'clamp(0.9rem, 2.5vw, 1rem)',
           fontWeight: '600',
           borderRadius: '12px',
           border: 'none',

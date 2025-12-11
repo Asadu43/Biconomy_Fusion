@@ -259,6 +259,7 @@ export default function FusionTransfer({ walletClient, userAddress }: FusionTran
   }>({ type: '', message: '' })
   const [txHash, setTxHash] = useState('')
   const [detectedWallet, setDetectedWallet] = useState<string>('')
+  const [isMobile, setIsMobile] = useState(false)
   
   // Token info state
   const [tokenInfo, setTokenInfo] = useState<{
@@ -287,6 +288,16 @@ export default function FusionTransfer({ walletClient, userAddress }: FusionTran
       console.log('💼 Wallet detected for transactions:', name)
     }
   }, [walletClient])
+
+  // Detect mobile screen size
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 640)
+    }
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    return () => window.removeEventListener('resize', checkMobile)
+  }, [])
 
   // Filter out expected RPC errors from console (these are normal during permit checks)
   useEffect(() => {
@@ -389,7 +400,7 @@ export default function FusionTransfer({ walletClient, userAddress }: FusionTran
     }
 
     setIsProcessing(true)
-    setStatus({ type: 'loading', message: 'Initializing Fusion Mode...' })
+    setStatus({ type: 'loading', message: 'Initializing Gasless Transfer...' })
     setTxHash('')
 
     try {
@@ -469,7 +480,7 @@ export default function FusionTransfer({ walletClient, userAddress }: FusionTran
         }
       })
 
-      // Step 5: Create Fusion trigger - ensure it's configured for permit
+      // Step 5: Create Gasless Transfer trigger - ensure it's configured for permit
       const trigger: Trigger = {
         chainId: config.chain.id,
         tokenAddress: tokenAddress as `0x${string}`,
@@ -477,11 +488,11 @@ export default function FusionTransfer({ walletClient, userAddress }: FusionTran
         // SDK should automatically detect permit and use it
       }
 
-      // Step 6: Get Fusion Quote with Sponsorship
-      setStatus({ type: 'loading', message: 'Getting Fusion quote...' })
+      // Step 6: Get Gasless Transfer Quote with Sponsorship
+      setStatus({ type: 'loading', message: 'Getting gasless transfer quote...' })
       
-      // Get fusion quote (minimal logging for speed)
-      console.log('⚡ Getting fusion quote...')
+      // Get gasless transfer quote (minimal logging for speed)
+      console.log('⚡ Getting gasless transfer quote...')
       
       const fusionQuote = await meeClient.getFusionQuote({
         sponsorship: true,
@@ -513,7 +524,7 @@ export default function FusionTransfer({ walletClient, userAddress }: FusionTran
 
       // Execute transaction immediately (no delays)
       setStatus({ type: 'loading', message: `Preparing transaction...` })
-      console.log(`⚡ Executing fusion quote...`)
+      console.log(`⚡ Executing gasless transfer quote...`)
       
       try {
         const result = await meeClient.executeFusionQuote({ fusionQuote })
@@ -572,78 +583,109 @@ export default function FusionTransfer({ walletClient, userAddress }: FusionTran
   }
 
   return (
-    <div className="card" style={{ maxWidth: '700px', margin: '0 auto' }}>
-      <div style={{ marginBottom: '2rem', textAlign: 'center' }}>
+    <div className="card" style={{ maxWidth: '700px', margin: '0 auto', padding: '1.25rem' }}>
+      <div style={{ marginBottom: '1.5rem', textAlign: 'center' }}>
         <h2 style={{ 
           margin: '0 0 0.5rem 0',
-          fontSize: '1.75rem',
+          fontSize: 'clamp(1.5rem, 4vw, 1.75rem)',
           fontWeight: '600',
           background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
           WebkitBackgroundClip: 'text',
           WebkitTextFillColor: 'transparent',
           backgroundClip: 'text'
         }}>
-          Fusion Mode Transfer
+          Gasless Transfer
         </h2>
-        <p style={{ color: '#888', fontSize: '0.95em', margin: 0 }}>
+        <p style={{ color: '#888', fontSize: 'clamp(0.85rem, 2vw, 0.95em)', margin: 0 }}>
           Transfer tokens with gas fees sponsored by Biconomy
         </p>
         {detectedWallet && (
-          <div style={{ 
-            marginTop: '1rem', 
-            padding: '1rem', 
-            backgroundColor: detectedWallet === 'Rabby' || detectedWallet === 'Gate Wallet' ? '#1a4d1a' : 
-                           detectedWallet === 'Trust Wallet' ? '#4d1a1a' : '#1a4d1a',
-            border: `1px solid ${detectedWallet === 'Trust Wallet' ? '#5a2d2d' : '#2d5a3d'}`,
-            borderRadius: '12px',
-            fontSize: '0.9em',
-            display: 'flex',
-            alignItems: 'center',
-            gap: '0.75rem'
-          }}>
+          <>
             <div style={{ 
-              width: '8px', 
-              height: '8px', 
-              borderRadius: '50%', 
-              backgroundColor: detectedWallet === 'Trust Wallet' ? '#f87171' : '#4ade80',
-              boxShadow: `0 0 8px ${detectedWallet === 'Trust Wallet' ? 'rgba(248, 113, 113, 0.6)' : 'rgba(74, 222, 128, 0.6)'}`
-            }} />
-            <div style={{ flex: 1, color: detectedWallet === 'Trust Wallet' ? '#f87171' : '#4ade80' }}>
-              <strong>{detectedWallet}</strong> will be used for signing transactions
+              marginTop: '1rem', 
+              padding: 'clamp(0.75rem, 2vw, 1rem)', 
+              backgroundColor: detectedWallet === 'Rabby' || detectedWallet === 'Gate Wallet' ? '#1a4d1a' : 
+                             detectedWallet === 'Trust Wallet' ? '#4d1a1a' : '#1a4d1a',
+              border: `1px solid ${detectedWallet === 'Trust Wallet' ? '#5a2d2d' : '#2d5a3d'}`,
+              borderRadius: '12px',
+              fontSize: 'clamp(0.85em, 2vw, 0.9em)',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '0.75rem'
+            }}>
+              <div style={{ 
+                width: '8px', 
+                height: '8px', 
+                borderRadius: '50%', 
+                backgroundColor: detectedWallet === 'Trust Wallet' ? '#f87171' : '#4ade80',
+                boxShadow: `0 0 8px ${detectedWallet === 'Trust Wallet' ? 'rgba(248, 113, 113, 0.6)' : 'rgba(74, 222, 128, 0.6)'}`,
+                flexShrink: 0
+              }} />
+              <div style={{ flex: 1, color: detectedWallet === 'Trust Wallet' ? '#f87171' : '#4ade80' }}>
+                <strong>{detectedWallet}</strong> will be used for signing transactions
+              </div>
             </div>
-          </div>
+            {detectedWallet === 'Rabby' && (
+              <div style={{ 
+                marginTop: '0.75rem', 
+                padding: 'clamp(0.75rem, 2vw, 1rem)', 
+                backgroundColor: '#1a3a4d',
+                border: '1px solid #2d5a7a',
+                borderRadius: '12px',
+                fontSize: 'clamp(0.8em, 2vw, 0.9em)',
+                lineHeight: '1.5',
+                color: '#60a5fa'
+              }}>
+                <div style={{ display: 'flex', alignItems: 'flex-start', gap: '0.5rem', marginBottom: '0.5rem' }}>
+                  <span style={{ fontSize: '1.2em' }}>ℹ️</span>
+                  <strong style={{ color: '#60a5fa' }}>Important for Rabby Wallet Users:</strong>
+                </div>
+                <div style={{ paddingLeft: '1.7rem', color: '#a5b4fc' }}>
+                  When sending <strong>gasless transactions</strong>, Rabby may show warnings about gas fees. 
+                  <strong style={{ color: '#60a5fa' }}> You can safely ignore these warnings</strong> - the transaction is fully sponsored by Biconomy and requires no gas from your wallet.
+                </div>
+              </div>
+            )}
+          </>
         )}
       </div>
 
       {/* Token Info Display */}
       {tokenAddress && (
+      <div style={{ 
+        marginBottom: '1.5rem', 
+        padding: 'clamp(0.75rem, 2vw, 1rem)', 
+        backgroundColor: '#1a1a1a', 
+        borderRadius: '8px',
+        border: '1px solid #333'
+      }}>
         <div style={{ 
-          marginBottom: '1.5rem', 
-          padding: '1rem', 
-          backgroundColor: '#1a1a1a', 
-          borderRadius: '8px',
-          border: '1px solid #333'
+          display: 'flex', 
+          flexDirection: isMobile ? 'column' : 'row',
+          justifyContent: 'space-between', 
+          alignItems: isMobile ? 'flex-start' : 'center', 
+          gap: isMobile ? '0.75rem' : '0',
+          marginBottom: '0.75rem' 
         }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.75rem' }}>
-            <div>
-              <h3 style={{ margin: 0, fontSize: '1.1em', color: '#fff' }}>
-                {tokenInfo.symbol || 'Loading...'} {tokenInfo.name && `(${tokenInfo.name})`}
-              </h3>
-              <small style={{ color: '#888', fontSize: '0.85em' }}>
-                {tokenAddress.slice(0, 6)}...{tokenAddress.slice(-4)}
-              </small>
-            </div>
-            <div style={{ textAlign: 'right' }}>
-              <div style={{ fontSize: '0.9em', color: '#888', marginBottom: '0.25rem' }}>Your Balance</div>
-              <div style={{ fontSize: '1.2em', fontWeight: 'bold', color: '#4ade80' }}>
-                {tokenInfo.isLoading ? 'Loading...' : tokenInfo.balance ? `${tokenInfo.balance} ${tokenInfo.symbol || ''}` : '0'}
-              </div>
-            </div>
+          <div style={{ flex: 1 }}>
+            <h3 style={{ margin: 0, fontSize: 'clamp(1em, 2.5vw, 1.1em)', color: '#fff' }}>
+              {tokenInfo.symbol || 'Loading...'} {tokenInfo.name && `(${tokenInfo.name})`}
+            </h3>
+            <small style={{ color: '#888', fontSize: 'clamp(0.75em, 2vw, 0.85em)', wordBreak: 'break-all' }}>
+              {tokenAddress.slice(0, 6)}...{tokenAddress.slice(-4)}
+            </small>
           </div>
-          <div style={{ fontSize: '0.85em', color: '#666' }}>
-            Decimals: {decimals} | Network: {config.chain.name}
+          <div style={{ textAlign: isMobile ? 'left' : 'right', width: isMobile ? '100%' : 'auto' }}>
+            <div style={{ fontSize: 'clamp(0.85em, 2vw, 0.9em)', color: '#888', marginBottom: '0.25rem' }}>Your Balance</div>
+            <div style={{ fontSize: 'clamp(1em, 3vw, 1.2em)', fontWeight: 'bold', color: '#4ade80' }}>
+              {tokenInfo.isLoading ? 'Loading...' : tokenInfo.balance ? `${tokenInfo.balance} ${tokenInfo.symbol || ''}` : '0'}
+            </div>
           </div>
         </div>
+        <div style={{ fontSize: 'clamp(0.75em, 2vw, 0.85em)', color: '#666', wordBreak: 'break-word' }}>
+          Decimals: {decimals} | Network: {config.chain.name}
+        </div>
+      </div>
       )}
 
       <div className="form-group">
@@ -723,9 +765,9 @@ export default function FusionTransfer({ walletClient, userAddress }: FusionTran
         disabled={isProcessing || !recipientAddress || !tokenAddress || !amount}
         style={{ 
           width: '100%', 
-          padding: '1.25em', 
+          padding: 'clamp(1em, 2.5vw, 1.25em)', 
           marginTop: '1.5rem',
-          fontSize: '1rem',
+          fontSize: 'clamp(0.9rem, 2.5vw, 1rem)',
           fontWeight: '600',
           borderRadius: '12px',
           border: 'none',
@@ -748,7 +790,7 @@ export default function FusionTransfer({ walletClient, userAddress }: FusionTran
           e.currentTarget.style.boxShadow = 'none'
         }}
       >
-        {isProcessing ? '⏳ Processing Transaction...' : '🚀 Transfer with Fusion Mode'}
+        {isProcessing ? '⏳ Processing Transaction...' : '🚀 Transfer with Gasless Transfer'}
       </button>
 
       {status.message && (

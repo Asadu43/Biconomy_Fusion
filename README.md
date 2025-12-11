@@ -1,31 +1,31 @@
-# 🚀 Biconomy Fusion Mode Demo
+# 🚀 Biconomy Gasless Transfer Demo
 
 ```
 ╔══════════════════════════════════════════════════════════════╗
 ║                                                              ║
-║        💸 GASLESS TOKEN TRANSFERS WITH FUSION MODE 💸        ║
+║        💸 GASLESS TOKEN TRANSFERS 💸                         ║
 ║                                                              ║
 ║   Transfer ERC-20 tokens without paying gas fees using      ║
-║   Biconomy's Fusion Mode with external wallets              ║
+║   Biconomy's Gasless Transfer with external wallets         ║
 ║                                                              ║
 ╚══════════════════════════════════════════════════════════════╝
 ```
 
 > 👋 **New here?** Start with **[START_HERE.md](./START_HERE.md)** for a complete guide!
 
-A React + TypeScript demo application showcasing **Biconomy Fusion Mode** for gasless token transfers using external wallets (MetaMask, Rabby, etc.).
+A React + TypeScript demo application showcasing **Biconomy Gasless Transfer** for gasless token transfers using external wallets (MetaMask, Rabby, etc.).
 
 ## ✨ Features
 
 - **Gasless Transfers**: Transfer tokens without needing native gas tokens (ETH)
-- **Fusion Mode**: Uses Biconomy's Companion Account for sponsored transactions
+- **Gasless Transfer**: Uses Biconomy's Companion Account for sponsored transactions
 - **External Wallet Support**: Works with MetaMask and any EIP-1193 compatible wallet
 - **Sponsorship Enabled**: Gas fees are paid by Biconomy, not the user
 - **Ethereum Sepolia Testnet**: Deployed on Ethereum Sepolia for testing
 
-### Traditional vs Fusion Mode Comparison
+### Traditional vs Gasless Transfer Comparison
 
-| Feature | Traditional Transfer | Fusion Mode (This App) |
+| Feature | Traditional Transfer | Gasless Transfer (This App) |
 |---------|---------------------|------------------------|
 | **Gas Payment** | User pays in ETH | Biconomy sponsors |
 | **Signatures Required** | 2 (approve + transfer) | 1 (trigger) |
@@ -34,9 +34,9 @@ A React + TypeScript demo application showcasing **Biconomy Fusion Mode** for ga
 | **Onboarding Friction** | High | Low |
 | **Cost to User** | Gas fees | $0 |
 
-## 🎯 What is Fusion Mode?
+## 🎯 What is Gasless Transfer?
 
-Fusion Mode allows external wallet users (MetaMask, Rabby, Trust Wallet) to execute transactions where a **Companion Account** (smart account) handles the gas payment. The flow is:
+Gasless Transfer allows external wallet users (MetaMask, Rabby, Trust Wallet) to execute transactions where a **Companion Account** (smart account) handles the gas payment. The flow is:
 
 1. **Trigger Signature**: User signs a trigger transaction that authorizes the orchestration
 2. **Funds Transfer**: Tokens are temporarily pulled into a Companion Account (non-custodial)
@@ -123,7 +123,7 @@ The app uses environment variables for configuration. Set these in your `.env` f
    - Token Decimals (default: 6 for USDC)
    - Recipient Address
    - Amount to transfer
-3. **Transfer**: Click "Transfer with Fusion Mode"
+3. **Transfer**: Click "Transfer with Gasless Transfer"
 4. **Sign**: Approve the transaction in your wallet
 5. **Done**: Wait for confirmation and view transaction on BaseScan
 
@@ -133,10 +133,10 @@ The app uses environment variables for configuration. Set these in your `.env` f
 Handles wallet connection using Viem's `createWalletClient` with MetaMask.
 
 ### `FusionTransfer.tsx`
-Implements the complete Fusion Mode flow:
+Implements the complete Gasless Transfer flow:
 - Creates Companion Account (Orchestrator)
 - Builds transfer instruction
-- Gets Fusion quote with sponsorship
+- Gets gasless transfer quote with sponsorship
 - Executes and monitors transaction
 
 ## 📚 How It Works
@@ -186,12 +186,12 @@ await meeClient.waitForSupertransactionReceipt({ hash })
 ## 🌐 Resources
 
 - [Biconomy Documentation](https://docs.biconomy.io/new/getting-started/enable-mee-eoa-fusion)
-- [Fusion Mode Guide](https://docs.biconomy.io/new/getting-started/enable-mee-eoa-fusion)
+- [Gasless Transfer Guide](https://docs.biconomy.io/new/getting-started/enable-mee-eoa-fusion)
 - [Ethereum Sepolia Explorer](https://sepolia.etherscan.io/)
 
 ## ⚠️ Important Notes
 
-### Fusion Mode Constraints:
+### Gasless Transfer Constraints:
 - Can only consume **one token per user signature**
 - Token used for execution must also be used to pay for gas (unless sponsorship is enabled)
 - With **sponsorship enabled**, any token works and no gas is needed from user
@@ -207,7 +207,7 @@ The SDK automatically detects token support and chooses the appropriate trigger 
 - **React 18** - UI framework
 - **TypeScript** - Type safety
 - **Viem** - Ethereum library
-- **Biconomy AbstractJS** - Fusion Mode SDK
+- **Biconomy AbstractJS** - Gasless Transfer SDK
 - **Vite** - Build tool
 
 ## 🚢 Deployment

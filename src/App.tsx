@@ -14,19 +14,19 @@ function App() {
 
   return (
     <div className="App">
-      <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
+      <div style={{ textAlign: 'center', marginBottom: '2rem', padding: '0 1rem' }}>
         <h1 style={{ 
           margin: '0 0 0.75rem 0',
-          fontSize: '2.5rem',
+          fontSize: 'clamp(1.75rem, 5vw, 2.5rem)',
           fontWeight: '700',
           background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
           WebkitBackgroundClip: 'text',
           WebkitTextFillColor: 'transparent',
           backgroundClip: 'text'
         }}>
-          Biconomy Fusion
+           Gasless Transfer
         </h1>
-        <p style={{ margin: 0, color: '#888', fontSize: '1.05em' }}>
+        <p style={{ margin: 0, color: '#888', fontSize: 'clamp(0.9rem, 2.5vw, 1.05em)' }}>
           Transfer tokens with gas fees sponsored by Biconomy Smart Account
         </p>
       </div>
@@ -107,9 +107,9 @@ function App() {
             }}
             style={{ 
               width: '100%', 
-              padding: '1.25em', 
+              padding: 'clamp(1em, 3vw, 1.25em)', 
               marginBottom: '1rem',
-              fontSize: '1rem',
+              fontSize: 'clamp(0.9rem, 2.5vw, 1rem)',
               fontWeight: '600',
               borderRadius: '12px',
               border: 'none',
@@ -159,8 +159,8 @@ function App() {
         <>
           <div style={{ 
             maxWidth: '700px', 
-            margin: '0 auto 2rem auto',
-            padding: '1.25rem',
+            margin: '0 auto 1.5rem auto',
+            padding: 'clamp(0.75rem, 2vw, 1rem)',
             backgroundColor: '#1a1a1a',
             borderRadius: '16px',
             border: '1px solid #333',
@@ -168,7 +168,7 @@ function App() {
             alignItems: 'center',
             justifyContent: 'space-between',
             flexWrap: 'wrap',
-            gap: '1rem'
+            gap: '0.75rem'
           }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', flex: 1 }}>
               <div style={{ 
@@ -179,14 +179,15 @@ function App() {
                 boxShadow: '0 0 8px rgba(74, 222, 128, 0.6)'
               }} />
               <div>
-                <div style={{ fontSize: '0.85em', color: '#888', marginBottom: '0.25rem' }}>
+                <div style={{ fontSize: 'clamp(0.75em, 2vw, 0.85em)', color: '#888', marginBottom: '0.25rem' }}>
                   Connected Wallet
                 </div>
                 <div style={{ 
-                  fontSize: '1.1em', 
+                  fontSize: 'clamp(0.95em, 2.5vw, 1.1em)', 
                   fontWeight: '600', 
                   color: '#fff',
-                  fontFamily: 'monospace'
+                  fontFamily: 'monospace',
+                  wordBreak: 'break-all'
                 }}>
                   {address?.slice(0, 6)}...{address?.slice(-4)}
                 </div>
@@ -195,15 +196,16 @@ function App() {
             <button 
               onClick={() => disconnect()}
               style={{ 
-                padding: '0.5rem 1rem',
+                padding: 'clamp(0.4rem, 1.5vw, 0.5rem) clamp(0.75rem, 2vw, 1rem)',
                 backgroundColor: '#4d1a1a',
                 border: '1px solid #5a2d2d',
                 borderRadius: '8px',
                 color: '#f87171',
                 cursor: 'pointer',
-                fontSize: '0.9em',
+                fontSize: 'clamp(0.85em, 2vw, 0.9em)',
                 fontWeight: '500',
-                transition: 'all 0.2s ease'
+                transition: 'all 0.2s ease',
+                whiteSpace: 'nowrap'
               }}
               onMouseEnter={(e) => {
                 e.currentTarget.style.backgroundColor = '#5a2d2d'

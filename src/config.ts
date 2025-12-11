@@ -37,9 +37,9 @@ export const config = {
   walletConnect: {
     projectId: walletConnectProjectId,
     metadata: {
-      name: 'Fusion Transfer',
-      description: 'Transfer tokens with Biconomy Fusion',
-      url: typeof window !== 'undefined' ? window.location.origin : 'https://fusion-transaction',
+      name: 'Gasless Transfer',
+      description: 'Transfer tokens with  Gasless Transfer',
+      url: typeof window !== 'undefined' ? window.location.origin : 'https://gasless-transfer',
       icons: ['https://avatars.githubusercontent.com/u/111761645?s=200&v=4']
     }
   },

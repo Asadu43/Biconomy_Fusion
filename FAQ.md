@@ -2,9 +2,9 @@
 
 ## General Questions
 
-### What is Biconomy Fusion Mode?
+### What is Biconomy Gasless Transfer?
 
-Fusion Mode is a mechanism that allows external wallet users (MetaMask, Rabby, Trust Wallet) to execute transactions where a Companion Account (smart account) handles the gas payment. It enables gasless transactions without requiring users to deploy their own smart accounts.
+Gasless Transfer is a mechanism that allows external wallet users (MetaMask, Rabby, Trust Wallet) to execute transactions where a Companion Account (smart account) handles the gas payment. It enables gasless transactions without requiring users to deploy their own smart accounts.
 
 ### How is this different from regular transactions?
 
@@ -13,7 +13,7 @@ Fusion Mode is a mechanism that allows external wallet users (MetaMask, Rabby, T
 - User needs ETH in wallet
 - One signature per transaction
 
-**Fusion Mode:**
+**Gasless Transfer:**
 - Gas paid by Biconomy (with sponsorship) or from the token being transferred
 - No ETH needed (with sponsorship)
 - Single signature for complex operations
@@ -21,7 +21,7 @@ Fusion Mode is a mechanism that allows external wallet users (MetaMask, Rabby, T
 
 ### Is my wallet safe?
 
-Yes! Fusion Mode is:
+Yes! Gasless Transfer is:
 - ✅ **Non-custodial**: You maintain full control
 - ✅ **Stateless**: No funds stored in Companion Account
 - ✅ **Transparent**: All transactions visible on-chain
@@ -171,7 +171,7 @@ Get API key from [Biconomy Dashboard](https://dashboard.biconomy.io/)
 
 ### Can I use this in production?
 
-Yes! Biconomy Fusion Mode is production-ready:
+Yes! Biconomy Gasless Transfer is production-ready:
 - ✅ Audited contracts
 - ✅ Battle-tested
 - ✅ Used by major dApps
